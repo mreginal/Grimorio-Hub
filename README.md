@@ -1,4 +1,4 @@
-# 🎲 RPG HUB
+# 🎲 Grimório HUB
 
 Base inicial do sistema de ferramentas para RPG.
 
@@ -17,11 +17,10 @@ Base inicial do sistema de ferramentas para RPG.
 - Cadastro com Firebase
 - Proteção de rotas
 - Logout
-- Dashboard principal
 - Sidebar
 - Cards de Parties
 - Próximas sessões
-- Personagens recentes
+- Personagens
 - Estrutura preparada para API Flask
 
 ## Estrutura
