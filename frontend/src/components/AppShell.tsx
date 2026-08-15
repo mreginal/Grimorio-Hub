@@ -16,7 +16,7 @@ export function AppShell() {
 
   const links = [
     { to: '/', label: 'Início', icon: FaHome },
-    { to: '/personagens', label: 'Personagens', icon: FaTheaterMasks },
+    { to: '/characters', label: 'Personagens', icon: FaTheaterMasks },
     { to: '/parties', label: 'Minhas Parties', icon: FaUser },
     { to: '/buscar', label: 'Descobrir', icon: FaCompass },
     { to: '/comunidade', label: 'Comunidade', icon: FaMessage },

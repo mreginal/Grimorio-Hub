@@ -1,11 +1,28 @@
 import { CalendarDays, ChevronRight, Plus, Sparkles, Swords, Users } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
-import type { Character, Party } from '../types'
 import { IoNotifications } from 'react-icons/io5'
+import { CharacterCard } from '../components/CharacterCard'
+import { useState } from 'react'
+import { Character } from '../types/character'
 
 export function Home() {
   const { user } = useAuth()
   const name = user?.displayName?.split(' ')[0] || 'Aventureiro'
+  const [characters, setCharacters] = useState<Character[]>([])
+    const [search, setSearch] = useState('')
+
+  const filteredCharacters =
+    characters.filter(character => {
+
+      const text =
+        `${character.name}
+         ${character.race}
+         ${character.className}`
+
+      return text
+        .toLowerCase()
+        .includes(search.toLowerCase())
+    })
 
   return (
     <div className="dashboard">
@@ -57,10 +74,12 @@ export function Home() {
         <div className="panel">
           <div className="section-heading">
             <div><span className="eyebrow">Coleção</span><h2>Personagens</h2></div>
-            <button className="text-button">Ver todos <ChevronRight size={16} /></button>
+            <button className="text-button">
+              Ver todos <ChevronRight size={16} />
+            </button>
           </div>
           <div className="character-list">
-            
+              
           </div>
         </div>
       </section>

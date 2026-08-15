@@ -16,11 +16,3 @@ export interface Party {
   nextSession: string
   image: string
 }
-
-export interface Character {
-  id: string
-  name: string
-  className: string
-  level: number
-  image: string
-}
