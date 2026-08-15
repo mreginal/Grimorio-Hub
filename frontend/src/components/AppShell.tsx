@@ -31,7 +31,7 @@ export function AppShell() {
             <img src="/grimorio-logo-white.png" alt="logo" />
           </div>
           <div>
-            <strong>GRIMORIO HUB</strong>
+            <strong style={{fontSize:17}}>Grimorio Hub</strong>
             <span>Sua jornada começa aqui</span>
           </div>
         </div>

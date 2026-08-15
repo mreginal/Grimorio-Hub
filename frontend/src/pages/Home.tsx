@@ -1,9 +1,9 @@
 import { CalendarDays, ChevronRight, Plus, Sparkles, Swords, Users } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import { IoNotifications } from 'react-icons/io5'
-import { CharacterCard } from '../components/CharacterCard'
 import { useState } from 'react'
 import { Character } from '../types/character'
+import { Link } from 'react-router-dom'
 
 export function Home() {
   const { user } = useAuth()
@@ -75,7 +75,7 @@ export function Home() {
           <div className="section-heading">
             <div><span className="eyebrow">Coleção</span><h2>Personagens</h2></div>
             <button className="text-button">
-              Ver todos <ChevronRight size={16} />
+              <Link to={"/characters"}>Ver todos <ChevronRight size={16} /></Link>
             </button>
           </div>
           <div className="character-list">

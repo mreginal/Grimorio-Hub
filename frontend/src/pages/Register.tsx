@@ -36,7 +36,8 @@ export function Register() {
       <div className="auth-art register-art">
         <div className="auth-brand">
           <img src="/grimorio-logo-white.png" alt="logo" />
-          GRIMORIO HUB</div>
+          Grimorio Hub
+        </div>
         <div className="auth-copy">
           <span className="eyebrow"><Sparkles size={14} /> Comece sua jornada</span>
           <h1>Seu personagem,<br /><em>Nosso legado.</em></h1>

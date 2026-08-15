@@ -1,11 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Germania+One&family=Tilt+Neon&display=swap');
 
+@font-face {
+  font-family: 'Font';
+  src:  url('/Font.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   font-family: Tilt Neon, system-ui, sans-serif;
   color: #f5f1fa;
   background: #0a0910;
 
-  --font: Germania One, serif;
+  --font: Font, serif;
   --bg: #0a0910;
   --panel: #13111a;
   --panel-2: #191620;

@@ -31,7 +31,7 @@ export function Login() {
       <div className="auth-art">
         <div className="auth-brand">
           <img src="/grimorio-logo-white.png" alt="logo" />
-          GRIMORIO HUB
+          Grimorio Hub
         </div>
         <div className="auth-copy">
           <span className="eyebrow"><Sparkles size={14} /> No mundo do RPG</span>
@@ -48,7 +48,7 @@ export function Login() {
       <div className="auth-panel">
         <div className="auth-form-wrap">
           <span className="eyebrow">Bem-vindo(a)</span>
-          <h2>Entrar no GRIMORIO HUB</h2>
+          <h2>Entrar no Grimorio Hub</h2>
           <p className="muted">Continue para sua próxima aventura.</p>
 
           <form onSubmit={handleSubmit} className="form">
