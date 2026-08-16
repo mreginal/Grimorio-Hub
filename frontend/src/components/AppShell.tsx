@@ -1,4 +1,4 @@
-import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { FaCompass, FaHome, FaTheaterMasks, FaUser } from 'react-icons/fa'
 import { FaMessage } from 'react-icons/fa6'
@@ -36,13 +36,17 @@ export function AppShell() {
           </div>
         </div>
 
-        <div className="profile-mini">
-          <div className="avatar">{(user?.displayName || user?.email || 'U')[0].toUpperCase()}</div>
-          <div>
-            <strong>{user?.displayName || 'Aventureiro'}</strong>
-            <span>{user?.email}</span>
-          </div>
-        </div>
+        
+          <Link to="/profile">
+            <div className="profile-mini">
+              <div className="avatar">{(user?.displayName || user?.email || 'U')[0].toUpperCase()}</div>
+              <div>
+                <strong>{user?.displayName || 'Aventureiro'}</strong>
+                <span>{user?.email}</span>
+              </div>
+            </div>
+          </Link>
+        
 
         <nav className="nav-list">
           {links.map(({ to, label, icon: Icon }) => (

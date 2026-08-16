@@ -3,6 +3,7 @@ from flask_cors import CORS
 
 from firebase.firebase_config import initialize_firebase
 from routes.character_routes import character_bp
+from routes.profile_routes import profile_bp
 
 
 app = Flask(__name__)
@@ -36,6 +37,7 @@ CORS(
 
 # Rotas
 app.register_blueprint(character_bp)
+app.register_blueprint(profile_bp)
 
 
 @app.route("/api/health", methods=["GET"])

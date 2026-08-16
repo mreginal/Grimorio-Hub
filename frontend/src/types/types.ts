@@ -1,9 +1,13 @@
 export interface UserProfile {
   uid: string
+  name: string
   email: string
-  displayName: string
-  photoURL?: string
-  canBeMaster: boolean
+  bio: string
+  avatar: string
+  isMaster: boolean
+  charactersCount: number
+  partiesCreated: number
+  partiesJoined: number
 }
 
 export interface Party {

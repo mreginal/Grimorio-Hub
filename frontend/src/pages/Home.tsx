@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { ChevronRight, Plus, Sparkles } from 'lucide-react'
 import { IoNotifications } from 'react-icons/io5'
 import { Link } from 'react-router-dom'
-
 import { useAuth } from '../context/AuthContext'
 import { getCharacters } from '../services/characterService'
 import type { Character } from '../types/character'
