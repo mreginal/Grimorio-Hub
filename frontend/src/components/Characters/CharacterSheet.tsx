@@ -1,5 +1,5 @@
 import { X } from "lucide-react"
-import { Character } from "../types/character"
+import { Character } from "../../types/character"
 
 export function CharacterSheet({
   character,

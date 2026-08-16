@@ -1,18 +1,12 @@
-import {
-  Edit,
-  Heart,
-  Shield,
-  Swords,
-  Trash2,
-} from 'lucide-react'
+import {Edit, Heart, Shield, Swords, Trash2 } from 'lucide-react'
 
-import type { Character } from '../types/character'
+import type { Character } from '../../types/character'
 
 interface CharacterCardProps {
   character: Character
-  onEdit: (character: Character) => void
-  onDelete: (id: string) => void
-  onView: (character: Character) => void
+  onEdit?: (character: Character) => void
+  onDelete?: (id: string) => void
+  onView?: (character: Character) => void
 }
 
 export function CharacterCard({
@@ -21,18 +15,19 @@ export function CharacterCard({
   onDelete,
   onView,
 }: CharacterCardProps) {
+  console.log('Personagem:', character)
+  console.log('Imagem:', character.imageUrl)
   return (
     <article className="character-card">
 
-      <div
-        className="character-card-image"
-        style={{
-          backgroundImage: `url(${
+      <div className="character-card-image">
+        <img
+          src={
             character.imageUrl ||
-            'https://images.unsplash.com/photo-1577083552431-6e5fd01988a5?auto=format&fit=crop&w=800&q=80'
-          })`,
-        }}
-      >
+            'https://w0.peakpx.com/wallpaper/734/429/HD-wallpaper-violet-background-abstract-color.jpg'
+          }
+          alt={character.name}
+        />
 
         <span className="character-level">
           Nível {character.level}
@@ -40,19 +35,17 @@ export function CharacterCard({
 
         <div className="character-card-actions">
 
-          <button
-            onClick={() => onEdit(character)}
-            title="Editar"
-          >
-            <Edit size={16} />
-          </button>
-
-          <button
-            onClick={() => onDelete(character.id)}
-            title="Excluir"
-          >
-            <Trash2 size={16} />
-          </button>
+          {onEdit && (
+            <button onClick={() => onEdit(character)} title="Editar"> 
+              <Edit size={16} />
+            </button>
+          )}
+          
+          {onDelete && (
+            <button onClick={() => onDelete(character.id)} title="Excluir"> 
+              <Trash2 size={16} />
+            </button>
+          )}
 
         </div>
       </div>
@@ -96,12 +89,11 @@ export function CharacterCard({
 
         </div>
 
-        <button
-          className="character-view-button"
-          onClick={() => onView(character)}
-        >
-          Ver ficha
-        </button>
+        {onView && (
+          <button className="character-view-button" onClick={() => onView(character)}>
+            Visualizar
+          </button>
+        )}
 
       </div>
     </article>
