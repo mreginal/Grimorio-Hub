@@ -26,15 +26,17 @@ export function AppShell() {
   return (
     <div className="app-shell">
       <aside className="sidebar">
-        <div className="brand">
-          <div className="brand-mark">
-            <img src="/grimorio-logo-white.png" alt="logo" />
+        <Link to={"/"}>
+          <div className="brand">
+            <div className="brand-mark">
+              <img src="/grimorio-logo-white.png" alt="logo" />
+            </div>
+            <div>
+              <strong style={{fontSize:17}}>Grimorio Hub</strong>
+              <span>Sua jornada começa aqui</span>
+            </div>
           </div>
-          <div>
-            <strong style={{fontSize:17}}>Grimorio Hub</strong>
-            <span>Sua jornada começa aqui</span>
-          </div>
-        </div>
+        </Link>
 
         
           <Link to="/profile">

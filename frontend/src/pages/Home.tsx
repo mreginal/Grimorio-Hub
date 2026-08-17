@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { ChevronRight, Plus, Sparkles } from 'lucide-react'
 import { IoNotifications } from 'react-icons/io5'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { getCharacters } from '../services/characterService'
 import type { Character } from '../types/character'
@@ -18,6 +18,8 @@ export function Home() {
 
   const [search, setSearch] =
     useState('')
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     async function loadCharacters() {
@@ -43,9 +45,9 @@ export function Home() {
   const filteredCharacters =
     characters.filter(character => {
       const text = `
-        ${character.name}
-        ${character.race}
-        ${character.className}
+        ${character.nome}
+        ${character.nex}
+        ${character.classe}
       `
 
       return text
@@ -201,7 +203,7 @@ export function Home() {
                   <CharacterCard
                     key={character.id}
                     character={character}
-                    onView={() => {}}
+                    onView={() => navigate (`/characters/`)}
                   />
                 ))
             ) : (

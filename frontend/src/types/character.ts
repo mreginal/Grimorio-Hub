@@ -1,37 +1,138 @@
+export interface CharacterAttributes {
+  forca: number
+  agilidade: number
+  intelecto: number
+  presenca: number
+  vigor: number
+}
+
+export interface CharacterSkills {
+  atletismo: number
+  atualidades: number
+  ciencia: number
+  diplomacia: number
+  enganacao: number
+  fortitude: number
+  furtividade: number
+  intimidacao: number
+  intuicao: number
+  investigacao: number
+  luta: number
+  medicina: number
+  ocultismo: number
+  percepcao: number
+  pilotagem: number
+  pontaria: number
+  prestidigitacao: number
+  profissao: number
+  reflexos: number
+  religiao: number
+  sobrevivencia: number
+  tatica: number
+  tecnologia: number
+  vontade: number
+}
+
+export interface CharacterHealth {
+  pv: number
+  pvAtual: number
+
+  san: number
+  sanAtual: number
+
+  pe: number
+  peAtual: number
+}
+
+export interface CharacterDefenses {
+  passiva: number
+  bloqueio: number
+  esquiva: number
+}
+
+export interface CharacterResistances {
+  fisica: number
+  balistica: number
+
+  insanidade: number
+  sangue: number
+  morte: number
+  energia: number
+  conhecimento: number
+}
+
+export interface Weapon {
+  id: string
+
+  nome: string
+  tipo: string
+
+  ataque: number
+  alcance: string
+
+  dano: string
+  critico: string
+
+  recarga: string
+  especial: string
+}
+
+export interface Ability {
+  id: string
+
+  nome: string
+  tipo: string
+
+  descricao: string
+
+  custo?: number
+  requisito?: string
+}
+
+export interface InventoryItem {
+  id: string
+
+  nome: string
+  quantidade: number
+
+  categoria: string
+
+  descricao?: string
+}
 
 export interface Character {
   id: string
+  userId: string
 
-  name: string
-  race: string
-  className: string
+  nome: string
+  jogador: string
 
-  level: number
+  origem: string
+  classe: string
 
-  background: string
-  alignment: string
+  nex: number
+  patente: string
 
-  description: string
-  backstory: string
+  atributos: CharacterAttributes
 
-  imageUrl?: string
+  pericias: CharacterSkills
 
-  hp: number
-  maxHp: number
+  saude: CharacterHealth
 
-  armorClass: number
-  initiative: number
+  defesas: CharacterDefenses
 
-  strength: number
-  dexterity: number
-  constitution: number
-  intelligence: number
-  wisdom: number
-  charisma: number
+  resistencias: CharacterResistances
 
-  abilities: string[]
-  spells: string[]
-  inventory: string[]
+  armas: Weapon[]
+
+  habilidades: Ability[]
+
+  inventario: InventoryItem[]
+
+  descricao: string
+  historia: string
+
+  imagemUrl: string
 
   createdAt?: string
   updatedAt?: string
@@ -39,5 +140,13 @@ export interface Character {
 
 export type CreateCharacterData = Omit<
   Character,
-  'id' | 'createdAt' | 'updatedAt'
+  'id' | 'userId' | 'createdAt' | 'updatedAt'
 >
+
+export interface ResourceProps {
+  icon: React.ReactNode
+  label: string
+  current: number
+  maximum: number
+  color?: 'purple' | 'red' | 'blue' | 'yellow'
+}

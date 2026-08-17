@@ -3,114 +3,159 @@ import type {
   CreateCharacterData,
 } from '../types/character'
 
-const API_URL =
-  import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
+const API_URL = 'http://localhost:5000/api'
 
 async function request<T>(
-  url: string,
-  token: string,
+  endpoint: string,
   options: RequestInit = {}
 ): Promise<T> {
-  const response = await fetch(`${API_URL}${url}`, {
-    ...options,
 
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-      ...(options.headers || {}),
-    },
-  })
+  const response = await fetch(
+    `${API_URL}${endpoint}`,
+    {
+      ...options,
+
+      headers: {
+        'Content-Type': 'application/json',
+
+        ...(options.headers || {}),
+      },
+    }
+  )
 
   const data = await response.json()
 
   if (!response.ok) {
-    throw new Error(data.error || 'Erro na requisição')
+
+    throw new Error(
+      data.message ||
+      data.error ||
+      'Erro na requisição.'
+    )
   }
 
   return data
 }
 
+
+/* =====================================================
+   GET
+===================================================== */
+
 export async function getCharacters(
   token: string
 ): Promise<Character[]> {
-  const data = await request<{ characters: Character[] }>(
+
+  return request<Character[]>(
     '/characters',
-    token
-  )
+    {
+      method: 'GET',
 
-  return data.characters
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  )
 }
 
-export async function getCharacter(
-  id: string,
-  token: string
-): Promise<Character> {
-  const data = await request<{ character: Character }>(
-    `/characters/${id}`,
-    token
-  )
 
-  return data.character
-}
+/* =====================================================
+   CREATE
+===================================================== */
 
 export async function createCharacter(
   character: CreateCharacterData,
   token: string
 ): Promise<Character> {
-  const data = await request<{ character: Character }>(
+
+  console.log(
+    'POST /characters',
+    character
+  )
+
+  return request<Character>(
     '/characters',
-    token,
     {
       method: 'POST',
+
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+
       body: JSON.stringify(character),
     }
   )
-
-  return data.character
 }
+
+
+/* =====================================================
+   UPDATE
+===================================================== */
 
 export async function updateCharacter(
   id: string,
-  character: Partial<CreateCharacterData>,
+  character: CreateCharacterData,
   token: string
 ): Promise<Character> {
-  const data = await request<{ character: Character }>(
+
+  return request<Character>(
     `/characters/${id}`,
-    token,
     {
       method: 'PUT',
+
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+
       body: JSON.stringify(character),
     }
   )
-
-  return data.character
 }
+
+
+/* =====================================================
+   DELETE
+===================================================== */
 
 export async function deleteCharacter(
   id: string,
   token: string
 ): Promise<void> {
+
   await request(
     `/characters/${id}`,
-    token,
     {
       method: 'DELETE',
+
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     }
   )
 }
 
+
+/* =====================================================
+   IA
+===================================================== */
+
 export async function generateCharacter(
   prompt: string,
   token: string
-): Promise<Partial<Character>> {
-  const data = await request<{ character: Partial<Character> }>(
+): Promise<Partial<CreateCharacterData>> {
+
+  return request<Partial<CreateCharacterData>>(
     '/characters/generate',
-    token,
     {
       method: 'POST',
-      body: JSON.stringify({ prompt }),
+
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+
+      body: JSON.stringify({
+        prompt,
+      }),
     }
   )
-
-  return data.character
 }

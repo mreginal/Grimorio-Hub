@@ -1,5 +1,4 @@
 from flask import Blueprint, jsonify, request
-
 from firebase_admin import auth
 
 from firebase.firebase_config import get_firestore
@@ -20,11 +19,13 @@ character_bp = Blueprint(
 )
 
 
+# =====================================================
+# AUTENTICAÇÃO
+# =====================================================
+
 def authenticate():
 
-    authorization = request.headers.get(
-        "Authorization"
-    )
+    authorization = request.headers.get("Authorization")
 
     if not authorization:
         return None
@@ -49,6 +50,10 @@ def authenticate():
 
         return None
 
+
+# =====================================================
+# GET /api/characters
+# =====================================================
 
 @character_bp.route(
     "",
@@ -76,9 +81,7 @@ def list_characters():
             user["uid"]
         )
 
-        return jsonify({
-            "characters": characters
-        })
+        return jsonify(characters), 200
 
     except Exception as error:
 
@@ -89,6 +92,10 @@ def list_characters():
             "error": str(error)
         }), 500
 
+
+# =====================================================
+# GET /api/characters/<id>
+# =====================================================
 
 @character_bp.route(
     "/<character_id>",
@@ -117,13 +124,10 @@ def find_character(character_id):
         if not character:
 
             return jsonify({
-                "error":
-                    "Personagem não encontrado."
+                "error": "Personagem não encontrado."
             }), 404
 
-        return jsonify({
-            "character": character
-        })
+        return jsonify(character), 200
 
     except Exception as error:
 
@@ -135,11 +139,18 @@ def find_character(character_id):
         }), 500
 
 
+# =====================================================
+# POST /api/characters
+# =====================================================
+
 @character_bp.route(
     "",
-    methods=["POST"]
+    methods=["POST", "OPTIONS"]
 )
 def add_character():
+
+    if request.method == "OPTIONS":
+        return "", 204
 
     user = authenticate()
 
@@ -157,7 +168,15 @@ def add_character():
             or {}
         )
 
-        if not data.get("name"):
+        print("\n==============================")
+        print("PERSONAGEM RECEBIDO")
+        print("==============================")
+        print(data)
+        print("==============================\n")
+
+        # IMPORTANTE:
+        # O frontend usa "nome"
+        if not data.get("nome"):
 
             return jsonify({
                 "error":
@@ -172,9 +191,10 @@ def add_character():
             data
         )
 
-        return jsonify({
-            "character": character
-        }), 201
+        print("\nPERSONAGEM CRIADO:")
+        print(character)
+
+        return jsonify(character), 201
 
     except Exception as error:
 
@@ -186,11 +206,18 @@ def add_character():
         }), 500
 
 
+# =====================================================
+# PUT /api/characters/<id>
+# =====================================================
+
 @character_bp.route(
     "/<character_id>",
-    methods=["PUT"]
+    methods=["PUT", "OPTIONS"]
 )
 def edit_character(character_id):
+
+    if request.method == "OPTIONS":
+        return "", 204
 
     user = authenticate()
 
@@ -207,6 +234,13 @@ def edit_character(character_id):
             .get_json(silent=True)
             or {}
         )
+
+        print("\n==============================")
+        print("ATUALIZAÇÃO DE PERSONAGEM")
+        print("==============================")
+        print("ID:", character_id)
+        print("DATA:", data)
+        print("==============================\n")
 
         db = get_firestore()
 
@@ -224,9 +258,7 @@ def edit_character(character_id):
                     "Personagem não encontrado."
             }), 404
 
-        return jsonify({
-            "character": character
-        })
+        return jsonify(character), 200
 
     except Exception as error:
 
@@ -238,11 +270,18 @@ def edit_character(character_id):
         }), 500
 
 
+# =====================================================
+# DELETE /api/characters/<id>
+# =====================================================
+
 @character_bp.route(
     "/<character_id>",
-    methods=["DELETE"]
+    methods=["DELETE", "OPTIONS"]
 )
 def remove_character(character_id):
+
+    if request.method == "OPTIONS":
+        return "", 204
 
     user = authenticate()
 
@@ -272,7 +311,7 @@ def remove_character(character_id):
         return jsonify({
             "message":
                 "Personagem excluído."
-        })
+        }), 200
 
     except Exception as error:
 
